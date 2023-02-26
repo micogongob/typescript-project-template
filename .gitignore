@@ -1,0 +1,26 @@
+# macOs
+**/.DS_Store
+
+# node
+**/node_modules/
+
+# yarn
+**/.pnp.*
+**/.yarn/*
+!**/.yarn/patches
+!**/.yarn/plugins
+!**/.yarn/releases
+!**/.yarn/sdks
+!**/.yarn/versions
+**/yarn-error.log*
+
+# turborepo
+**/.turbo
+
+# docker
+**/.env
+
+# typescript genereated
+**/generated/js
+**/dist/**/*.js
+**/dist/**/*.js.map

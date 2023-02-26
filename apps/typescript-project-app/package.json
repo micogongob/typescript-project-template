@@ -1,0 +1,23 @@
+{
+    "name": "@local/typescript-project-app",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./dist/server.js",
+    "scripts": {
+        "build": "rm -rf dist && tsc",
+        "start": "nodemon --conditions=transpiled -r dotenv/config",
+        "lint": "eslint . --ext .ts",
+        "fmt": "eslint . --ext .ts --fix",
+        ".env": "cp -f .env.example .env"
+    },
+    "dependencies": {
+        "@local/commons": "workspace:^",
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "@local/config-eslint": "workspace:^",
+        "@local/config-typescript": "workspace:^",
+        "@local/dev-dependencies": "workspace:^",
+        "@types/express": "^4.17.17"
+    }
+}

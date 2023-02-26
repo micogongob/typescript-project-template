@@ -1,0 +1,21 @@
+{
+    "name": "@local/commons",
+    "version": "0.0.0",
+    "private": true,
+    "main": "src/index.ts",
+    "exports": {
+        "transpiled": "./dist/index.js",
+        "default": "./src/index.ts"
+    },
+    "scripts": {
+        "build": "rm -rf dist && tsc",
+        "lib_build": "npm run build",
+        "prestart": "npm run build",
+        "lint": "eslint . --ext .ts",
+        "fmt": "eslint . --ext .ts --fix"
+    },
+    "devDependencies": {
+        "@local/config-eslint": "workspace:^",
+        "@local/config-typescript": "workspace:^"
+    }
+}

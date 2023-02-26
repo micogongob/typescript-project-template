@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "paths": {
+            "*": [
+                "./src/*"
+            ]
+        },
+        "esModuleInterop": true,
+        "strict": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "sourceMap": true
+    }
+}

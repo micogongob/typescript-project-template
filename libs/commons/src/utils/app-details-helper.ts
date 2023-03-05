@@ -1,14 +1,10 @@
-import { AppDetails } from '@local/commons';
+import { AppDetails } from '../models';
 
 const appDetails: AppDetails = {
   name: process.env.APP_NAME || 'UNKNOWN',
   version: process.env.APP_VERSION || 'UNKNOWN'
 };
 
-function getDetails(): AppDetails {
+export function getDetails(): AppDetails {
   return appDetails;
 }
-
-export default {
-  getDetails
-};

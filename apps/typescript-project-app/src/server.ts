@@ -1,5 +1,6 @@
 import { AppDetailsHelper } from '@local/commons';
 import express from 'express';
+import { errorHandler } from '@local/commons';
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.get('/health', (req: any, res: any, next: any) => {
     return next(err);
   }
 });
+
+app.use(errorHandler.logError);
+app.use(errorHandler.asApiError);
 
 console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);
 

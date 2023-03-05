@@ -1,0 +1,11 @@
+{
+    "name": "@local/config-mocha",
+    "version": "0.0.0",
+    "private": true,
+    "dependencies": {
+        "@local/test-dependencies": "workspace:^",
+        "@types/mocha": "^10.0.1",
+        "mocha": "^10.2.0",
+        "ts-mocha": "^10.0.0"
+    }
+}

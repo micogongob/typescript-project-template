@@ -9,6 +9,7 @@
     },
     "scripts": {
         "build": "rm -rf dist && tsc",
+        "test": "mocha -r ts-node/register 'tests/**/*.spec.ts'",
         "lib_build": "npm run build",
         "prestart": "npm run build",
         "lint": "eslint . --ext .ts",
@@ -16,6 +17,7 @@
     },
     "devDependencies": {
         "@local/config-eslint": "workspace:^",
+        "@local/config-mocha": "workspace:^",
         "@local/config-typescript": "workspace:^"
     }
 }

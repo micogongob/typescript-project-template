@@ -6,6 +6,9 @@ install:
 build:
 	yarn build
 
+test:
+	yarn test
+
 lint:
 	yarn lint
 

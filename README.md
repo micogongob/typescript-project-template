@@ -20,3 +20,6 @@
 
 ### run sample express server
     $ make run
+
+### run tests using mocha
+    $ make test

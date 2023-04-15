@@ -9,7 +9,9 @@
     },
     "scripts": {
         "build": "rm -rf dist && tsc",
-        "test": "mocha -r ts-node/register 'tests/**/*.spec.ts'",
+        "test": "npm run mochaTestTS",
+        "mochaTestJS": "mocha 'tests/**/*.spec.js'",
+        "mochaTestTS": "mocha -r ts-node/register 'tests/**/*.spec.ts'",
         "lib_build": "npm run build",
         "prestart": "npm run build",
         "lint": "eslint . --ext .ts",

@@ -13,7 +13,7 @@
         "lint": "turbo run lint",
         "fmt": "turbo run fmt",
         ".env": "turbo run .env",
-        "run_app": "cd apps/typescript-project-app && npm start"
+        "run_app": "cd apps/core && npm start"
     },
     "devDependencies": {
         "eslint": "^8.26.0",

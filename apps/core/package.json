@@ -1,5 +1,5 @@
 {
-    "name": "@local/typescript-project-app",
+    "name": "@local/core",
     "version": "0.0.0",
     "private": true,
     "main": "./dist/server.js",

@@ -2,7 +2,7 @@ import { AppDetailsHelper } from '@local/commons';
 import express from 'express';
 import { errorHandler } from '@local/commons';
 
-const app = express();
+export const app = express();
 
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
@@ -31,8 +31,3 @@ app.use(errorHandler.logError);
 app.use(errorHandler.asApiError);
 
 console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server listening at port: ${port}`);
-});

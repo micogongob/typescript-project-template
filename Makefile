@@ -19,4 +19,4 @@ fmt:
 	yarn .env
 
 run:
-	yarn run_app
+	yarn run-app

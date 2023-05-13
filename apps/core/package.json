@@ -4,8 +4,10 @@
     "private": true,
     "main": "./dist/server.js",
     "scripts": {
-        "build": "rm -rf dist && tsc",
-        "start": "nodemon --conditions=transpiled -r dotenv/config",
+        "build": "npm run ts-build",
+        "ts-build": "rm -rf dist && tsc",
+        "start": "npm run ts-run",
+        "ts-run": "nodemon -r dotenv/config ./src/index.ts",
         "lint": "eslint . --ext .ts",
         "fmt": "eslint . --ext .ts --fix",
         ".env": "cp -f .env.example .env"

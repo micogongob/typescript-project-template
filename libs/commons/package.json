@@ -8,11 +8,12 @@
         "default": "./src/index.ts"
     },
     "scripts": {
-        "build": "rm -rf dist && tsc",
+        "build": "npm run ts-build",
+        "ts-build": "rm -rf dist && tsc",
         "test": "npm run mochaTestTS",
-        "mochaTestJS": "mocha 'tests/**/*.spec.js'",
-        "mochaTestTS": "mocha -r ts-node/register 'tests/**/*.spec.ts'",
-        "lib_build": "npm run build",
+        "js-mocha": "mocha 'test/**/*.spec.js'",
+        "ts-mocha": "mocha -r ts-node/register 'test/**/*.spec.ts'",
+        "build-lib": "npm run build",
         "prestart": "npm run build",
         "lint": "eslint . --ext .ts",
         "fmt": "eslint . --ext .ts --fix"

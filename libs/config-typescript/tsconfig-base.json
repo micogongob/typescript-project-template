@@ -4,7 +4,7 @@
         "checkJs": true,
         "allowJs": true,
         "declaration": true,
-        "emitDeclarationOnly": true,
+        "emitDeclarationOnly": false,
         "target": "es6",
         "module": "commonjs",
         "paths": {

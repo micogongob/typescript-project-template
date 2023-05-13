@@ -14,13 +14,16 @@
 !**/.yarn/versions
 **/yarn-error.log*
 
+
 # turborepo
 **/.turbo
 
 # docker
+.docker-data
 **/.env
 
 # typescript genereated
 **/generated/js
 **/dist/**/*.js
 **/dist/**/*.js.map
+**/dist/**/*.d.ts

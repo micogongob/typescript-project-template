@@ -1,0 +1,44 @@
+APP_IMAGE = core
+APP_PORT = 9090
+APP_VERSION ?= latest
+APP_DOCKERFILE ?= Dockerfile.local
+
+RUN_NPM = npm
+
+install:
+	yarn install
+
+build:
+	yarn build
+	$(MAKE) _buildDocker
+
+test:
+	yarn test
+
+lint:
+	yarn lint
+
+fmt:
+	yarn fmt
+
+.env:
+	yarn .env
+
+_buildDocker:
+	docker build -t $(APP_IMAGE) -f apps/core/$(APP_DOCKERFILE) .
+
+logs:
+	docker logs -f $(APP_IMAGE)
+
+run:
+	docker run --rm --detach -p $(APP_PORT):9090 --env-file apps/core/.env \
+		-v $(PWD)/node_modules:/server/node_modules \
+		--name $(APP_IMAGE) $(APP_IMAGE):$(APP_VERSION)
+	$(MAKE) logs
+
+stop:
+	@docker rm -f $(APP_IMAGE) || echo "already stopped"
+
+start: build run
+
+restart: stop run

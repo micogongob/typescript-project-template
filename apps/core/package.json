@@ -6,6 +6,9 @@
     "scripts": {
         "build": "npm run ts-build",
         "ts-build": "rm -rf dist && tsc",
+        "test": "npm run ts-mocha",
+        "js-mocha": "nyc --reporter=html mocha 'tests/**/*.spec.js'",
+        "ts-mocha": "nyc --reporter=html mocha -r ts-node/register 'tests/**/*.spec.ts'",
         "start": "npm run ts-run",
         "ts-run": "nodemon -r dotenv/config ./src/index.ts",
         "lint": "eslint . --ext .ts",

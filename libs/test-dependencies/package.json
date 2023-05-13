@@ -2,13 +2,30 @@
     "name": "@local/test-dependencies",
     "version": "0.0.0",
     "private": true,
+    "main": "src/index.ts",
+    "exports": {
+        "transpiled": "./dist/index.js",
+        "default": "./src/index.ts"
+    },
+    "scripts": {
+        "build": "npm run ts-build",
+        "ts-build": "rm -rf dist && tsc",
+        "js-mocha": "nyc --reporter=html mocha 'tests/**/*.spec.js'",
+        "ts-mocha": "nyc --reporter=html mocha -r ts-node/register 'tests/**/*.spec.ts'",
+        "build-lib": "npm run build",
+        "prestart": "npm run build",
+        "lint": "eslint . --ext .ts",
+        "fmt": "eslint . --ext .ts --fix"
+    },
     "dependencies": {
         "@types/chai": "^4.3.4",
         "@types/proxyquire": "^1.3.28",
+        "@types/ramda": "^0.29.1",
         "@types/sinon": "^10.0.13",
         "chai": "^4.3.7",
         "nyc": "^15.1.0",
         "proxyquire": "^2.1.3",
+        "ramda": "^0.29.0",
         "sinon": "^15.0.1",
         "sinon-chai": "^3.7.0"
     }

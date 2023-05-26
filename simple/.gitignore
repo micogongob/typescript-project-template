@@ -1,0 +1,19 @@
+# macOs
+**/.DS_Store
+
+# node
+**/node_modules/
+
+# nyc
+**/coverage
+**/.nyc_output
+
+# docker
+.docker-data
+**/.env
+
+# typescript genereated
+**/generated/js
+**/dist/**/*.js
+**/dist/**/*.js.map
+**/dist/**/*.d.ts

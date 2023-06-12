@@ -1,11 +1,13 @@
 import { AppDetailsHelper } from '@local/commons';
 import express from 'express';
+import logger from 'morgan';
 import { errorHandler } from '@local/commons';
 
 export const app = express();
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req: any, res: any, next: any) => {
   try {

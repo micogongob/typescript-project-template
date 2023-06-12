@@ -5,7 +5,7 @@ describe('error handler', () => {
   describe('extractMessageFromErr', () => {
     it('should return from string', () => {
       // when
-      const errMsg = errorHandler.extractMessageFromErr('something went wrong');
+      const errMsg = errorHandler.parseExceptionMessage('something went wrong');
 
       // then
       expect(errMsg).to.be.eq('something went wrong');
@@ -13,7 +13,7 @@ describe('error handler', () => {
 
     it('should return from string', () => {
       // when
-      const errMsg = errorHandler.extractMessageFromErr(new Error('I am the senate!'));
+      const errMsg = errorHandler.parseExceptionMessage(new Error('I am the senate!'));
 
       // then
       expect(errMsg).to.be.contain('I am the senate!');
@@ -21,10 +21,10 @@ describe('error handler', () => {
 
     it('should return default', () => {
       // when
-      const errMsg = errorHandler.extractMessageFromErr({ foo: 'bar' });
+      const errMsg = errorHandler.parseExceptionMessage({ foo: 'bar' });
 
       // then
-      expect(errMsg).to.be.contain('Unparseable error');
+      expect(errMsg).to.be.contain('Unparseable exception message');
     });
   });
 });

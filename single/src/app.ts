@@ -4,7 +4,10 @@ import { errorHandler, AppDetailsHelper } from './utils';
 
 export const app = express();
 
-app.use(logger('dev'));
+if (process.env.NODE_ENV !== 'production') {
+  app.use(logger('dev'));
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

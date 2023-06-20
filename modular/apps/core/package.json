@@ -1,6 +1,6 @@
 {
     "name": "@local/core",
-    "version": "0.0.0",
+    "version": "1.0.0-dev",
     "private": true,
     "main": "./dist/server.js",
     "scripts": {
@@ -11,8 +11,8 @@
         "ts-mocha": "nyc --reporter=html mocha -r ts-node/register 'tests/**/*.spec.ts'",
         "start": "npm run ts-run",
         "ts-run": "DEBUG=app,app:* nodemon -r dotenv/config ./src/index.ts",
-        "lint": "eslint . --ext .ts",
-        "fmt": "eslint . --ext .ts --fix",
+        "lint": "eslint src --ext .ts",
+        "fmt": "eslint src --ext .ts --fix",
         ".env": "cp -f .env.example .env"
     },
     "dependencies": {

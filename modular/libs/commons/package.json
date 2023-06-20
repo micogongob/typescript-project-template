@@ -15,8 +15,8 @@
         "ts-mocha": "nyc --reporter=html mocha -r ts-node/register 'tests/**/*.spec.ts'",
         "build-lib": "npm run build",
         "prestart": "npm run build",
-        "lint": "eslint . --ext .ts",
-        "fmt": "eslint . --ext .ts --fix"
+        "lint": "eslint src --ext .ts",
+        "fmt": "eslint src --ext .ts --fix"
     },
     "dependencies": {
         "debug": "^4.3.4",

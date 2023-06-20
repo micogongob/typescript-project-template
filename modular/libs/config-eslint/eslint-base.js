@@ -15,6 +15,8 @@ module.exports = {
     rules: {
         "prettier/prettier": 2,
         "@typescript-eslint/comma-dangle": 0,
+        "@typescript-eslint/no-use-before-define": 0,
+        "@typescript-eslint/naming-convention": 1,
         "no-unused-vars": 1,
         "no-unused-expressions": 1,
         "camelcase": 1,

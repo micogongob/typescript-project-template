@@ -10,8 +10,7 @@
     "lint": "eslint src --ext .ts",
     "fmt": "eslint src --ext .ts --fix",
     "start": "npm run ts-run",
-    "ts-run": "DEBUG=app,app:* nodemon -r dotenv/config ./src/index.ts",
-    ".env": "cp -f .env.example .env"
+    "ts-run": "DEBUG=app,app:* nodemon -r dotenv/config ./src/index.ts"
   },
   "dependencies": {
     "debug": "^4.3.4",

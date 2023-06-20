@@ -1,5 +1,10 @@
 RUN_NPM = npm
 
+envfile ?= .env.example
+
+.env:
+	cp -f $(envfile) .env
+
 install:
 	$(RUN_NPM) install
 
@@ -14,9 +19,6 @@ lint:
 
 fmt:
 	$(RUN_NPM) run fmt
-
-.env:
-	$(RUN_NPM) run .env
 
 run:
 	$(RUN_NPM) start

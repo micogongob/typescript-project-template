@@ -1,9 +1,9 @@
-import { debug as Debug } from 'debug';
+import debug from 'debug';
 import { app } from './app';
 
-const debug = Debug('app');
+const log = debug('app');
 const port = process.env.PORT || 3000;
 
 export const server = app.listen(port, () => {
-  debug(`Server listening at port: ${port}`);
+  log(`Server listening at port: ${port}`);
 });

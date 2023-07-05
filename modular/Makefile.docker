@@ -35,6 +35,7 @@ run:
 		-v $(PWD)/node_modules:/server/node_modules \
 		--name $(APP_IMAGE) $(APP_IMAGE):$(APP_VERSION)
 	$(MAKE) logs
+.PHONY: run
 
 stop:
 	@docker rm -f $(APP_IMAGE) || echo "already stopped"

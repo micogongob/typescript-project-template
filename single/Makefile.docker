@@ -32,6 +32,7 @@ run:
 	docker run --rm --detach -p $(APP_PORT):9090 --env-file .env \
 		--name $(APP_NAME) $(APP_NAME):latest
 	$(MAKE) logs
+.PHONY: run
 
 logs:
 	docker logs -f $(APP_NAME)

@@ -22,3 +22,4 @@ fmt:
 
 run:
 	$(RUN_NPM) start
+.PHONY: run

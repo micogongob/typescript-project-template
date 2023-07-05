@@ -20,3 +20,4 @@ fmt:
 
 run:
 	yarn run-app
+.PHONY: run

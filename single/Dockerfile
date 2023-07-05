@@ -16,4 +16,5 @@ COPY --chown=node:node --from=builder /build/dist /app/dist
 RUN npm install --omit=dev
 
 USER node
-CMD ["dumb-init", "node", "dist/index.js"]
+ENTRYPOINT ["dumb-init", "node", "--conditions=transpiled"]
+CMD ["dist/index.js"]

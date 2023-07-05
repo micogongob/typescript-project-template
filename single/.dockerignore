@@ -13,7 +13,8 @@ node_modules
 
 # docker
 .dockerignore
-Dockerfile
+**/Dockerfile
+**/Dockerfile.base
 .env.example
 .env
 

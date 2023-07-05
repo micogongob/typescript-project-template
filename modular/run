@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+  echo "Usage $0 <.ts file>"
+  exit 1
+fi
+
+ts_file=$1
+
+if [ ! -f $ts_file ]
+then
+  echo "File: ${ts_file} does not exist"
+  exit 1
+fi
+
+if [[ ! $ts_file == *.ts ]]
+then
+  echo "File: ${ts_file} is not a typescript (.ts) file"
+  exit 1
+fi
+
+npx ts-node -r dotenv/config $1

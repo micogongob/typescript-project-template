@@ -1,9 +1,0 @@
-FROM node:16.0.0-slim
-
-WORKDIR /server
-COPY . .
-COPY .yarnrc.yml .
-COPY .yarn/releases/ .yarn/releases/
-RUN chown -R node /server
-USER node
-CMD exec node --conditions=transpiled apps/core/dist/index.js

@@ -1,0 +1,28 @@
+FROM node:18.16.0-bullseye-slim AS builder
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+
+WORKDIR /build
+COPY --chown=node:node . /build
+COPY --chown=node:node .yarnrc.yml /build/.yarnrc.yml
+COPY --chown=node:node .yarn/releases/ /build/.yarn/releases/
+RUN yarn install
+RUN yarn build
+RUN ls -la libs/**/dist && ls -la apps/**/dist
+
+FROM node:18.16.0-bullseye-slim
+COPY --from=builder /usr/bin/dumb-init /usr/bin/dumb-init
+ENV NODE_ENV production
+
+WORKDIR /app
+COPY --chown=node:node --from=builder /build/package.json /build/package.json /app
+COPY --chown=node:node --from=builder /build/.yarnrc.yml /build/yarn.lock /build/turbo.json /app
+COPY --chown=node:node --from=builder /build/.yarn/releases/ /app/.yarn/releases/
+COPY --chown=node:node --from=builder /build/docker /app/docker
+# TODO remove typescript and other files to make image slimmer
+COPY --chown=node:node --from=builder /build/libs /app/libs
+COPY --chown=node:node --from=builder /build/apps /app/apps
+RUN yarn install
+
+USER node
+ENTRYPOINT ["dumb-init", "node", "--conditions=transpiled"]
+CMD ["docker/default-index.js"]

@@ -1,6 +1,5 @@
-APP_IMAGE = core
+BASE_NAME = typescript-project-template-base
 APP_PORT = 9090
-APP_VERSION ?= latest
 APP_DOCKERFILE ?= Dockerfile.local
 
 RUN_NPM = npm
@@ -9,7 +8,6 @@ install:
 	yarn install
 
 build:
-	yarn build
 	$(MAKE) _buildDocker
 
 test:
@@ -25,12 +23,14 @@ fmt:
 	yarn .env
 
 _buildDocker:
-	docker build -t $(APP_IMAGE) -f apps/core/$(APP_DOCKERFILE) .
+	# TODO versioning?
+	docker build -t $(BASE_NAME):latest -f docker/Dockerfile.base .
 
 logs:
 	docker logs -f $(APP_IMAGE)
 
 run:
+	# TODO run specific app
 	docker run --rm --detach -p $(APP_PORT):9090 --env-file apps/core/.env \
 		-v $(PWD)/node_modules:/server/node_modules \
 		--name $(APP_IMAGE) $(APP_IMAGE):$(APP_VERSION)

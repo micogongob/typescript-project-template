@@ -9,8 +9,8 @@ describe('app details helper', () => {
       const details: AppDetails = AppDetailsHelper.getDetails();
 
       // then
-      expect(details.name).to.be.eq('UNKNOWN_APP_NAME');
-      expect(details.version).to.be.eq('UNKNOWN_APP_VERSION');
+      expect(details.name).to.be.eq('typescript-project-template');
+      expect(details.version).to.be.eq('1.0.0');
     });
   });
 });

@@ -32,10 +32,10 @@ describe('Server', () => {
     };
   });
 
-  it('should listen to port 3000', () => {
+  it('should listen to port 9090', () => {
     const { server } = createProxy();
 
-    expect(R.pathOr(undefined, ['firstCall', 'args', 0], listenStub)).to.eq(3000);
+    expect(R.pathOr(undefined, ['firstCall', 'args', 0], listenStub)).to.eq('9090');
     expect(server).to.eql({ type: 'SERVER' });
   });
 });

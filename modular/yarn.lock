@@ -393,9 +393,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@local/commons@workspace:^, @local/commons@workspace:libs/commons":
+"@local/common-dependencies@workspace:^, @local/common-dependencies@workspace:libs/common-dependencies":
   version: 0.0.0-use.local
-  resolution: "@local/commons@workspace:libs/commons"
+  resolution: "@local/common-dependencies@workspace:libs/common-dependencies"
   dependencies:
     "@local/config-eslint": "workspace:^"
     "@local/config-mocha": "workspace:^"
@@ -455,10 +455,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@local/core@workspace:apps/core"
   dependencies:
-    "@local/commons": "workspace:^"
     "@local/config-eslint": "workspace:^"
     "@local/config-typescript": "workspace:^"
     "@local/dev-dependencies": "workspace:^"
+    "@local/starter-web": "workspace:^"
     "@types/express": ^4.17.17
     express: ^4.18.2
   languageName: unknown
@@ -469,6 +469,19 @@ __metadata:
   resolution: "@local/dev-dependencies@workspace:libs/dev-dependencies"
   dependencies:
     dotenv: 16.0.3
+  languageName: unknown
+  linkType: soft
+
+"@local/starter-web@workspace:^, @local/starter-web@workspace:libs/starter-web":
+  version: 0.0.0-use.local
+  resolution: "@local/starter-web@workspace:libs/starter-web"
+  dependencies:
+    "@local/common-dependencies": "workspace:^"
+    "@local/config-eslint": "workspace:^"
+    "@local/config-mocha": "workspace:^"
+    "@local/config-typescript": "workspace:^"
+    "@types/express": ^4.17.17
+    express: ^4.18.2
   languageName: unknown
   linkType: soft
 

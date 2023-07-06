@@ -16,7 +16,7 @@
         ".env": "cp -f .env.example .env"
     },
     "dependencies": {
-        "@local/commons": "workspace:^",
+        "@local/common-dependencies": "workspace:^",
         "express": "^4.18.2"
     },
     "devDependencies": {

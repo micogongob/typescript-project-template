@@ -1,7 +1,7 @@
-import { AppDetailsHelper } from '@local/commons';
+import { AppDetailsHelper } from '@local/common-dependencies';
 import express from 'express';
 import logger from 'morgan';
-import { ErrorHandler } from '@local/commons';
+import { ErrorHandler } from '@local/common-dependencies';
 
 export const app = express();
 

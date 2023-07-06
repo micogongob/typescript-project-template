@@ -1,38 +1,27 @@
 import { AppDetailsHelper } from '@local/common-dependencies';
 import express from 'express';
-import logger from 'morgan';
 import { ErrorHandler } from '@local/common-dependencies';
+import {
+  WebApplicationStarter,
+  WebApplicationStarterBuilder,
+  HttpTrafficLoggingMiddlewareStarter,
+  RequestBodyProcessingMiddlewareStarter,
+  SimpleHealthCheckMiddlewareStarter,
+  DefaultRouteNotFoundMiddlewareStarter
+} from '@local/starter-web';
 
-export const app = express();
+export const app: WebApplicationStarter = WebApplicationStarterBuilder
+  .newBuilder(express())
+  .addMiddlewares(
+    new HttpTrafficLoggingMiddlewareStarter(),
+    new RequestBodyProcessingMiddlewareStarter(),
+    new SimpleHealthCheckMiddlewareStarter(),
+    new DefaultRouteNotFoundMiddlewareStarter()
+  )
+  .build();
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use(logger('dev'));
-}
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.get('/', (req: any, res: any, next: any) => {
-  try {
-    return res.status(200).end();
-  } catch (err) {
-    return next(err);
-  }
-});
-
-app.get('/health', (req: any, res: any, next: any) => {
-  try {
-    return res.status(200).json({
-      data: {
-        message: 'OK'
-      }
-    });
-  } catch (err) {
-    return next(err);
-  }
-});
-
-app.use(ErrorHandler.logError);
-app.use(ErrorHandler.asApiError);
+// TODO support error handler in starter
+//app.use(ErrorHandler.logError);
+//app.use(ErrorHandler.asApiError);
 
 console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);

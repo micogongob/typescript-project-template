@@ -54,12 +54,12 @@ export class WebApplicationStarterBuilder {
   }
 }
 
-export const webApp: WebApplicationStarter = WebApplicationStarterBuilder
-  .newBuilder(express())
-  .addMiddlewares(
-    new HttpTrafficLoggingMiddlewareStarter(),
-    new RequestBodyProcessingMiddlewareStarter(),
-    new SimpleHealthCheckMiddlewareStarter()
-  )
-  .build();
+// export const webApp: WebApplicationStarter = WebApplicationStarterBuilder
+//   .newBuilder(express())
+//   .addMiddlewares(
+//     new HttpTrafficLoggingMiddlewareStarter(),
+//     new RequestBodyProcessingMiddlewareStarter(),
+//     new SimpleHealthCheckMiddlewareStarter()
+//   )
+//   .build();
 

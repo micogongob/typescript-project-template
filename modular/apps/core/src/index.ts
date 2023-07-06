@@ -4,6 +4,4 @@ import { app } from './app';
 const log = debug('app');
 const port = process.env.PORT || 3000;
 
-export const server = app.listen(port, () => {
-  log(`Server listening at port: ${port}`);
-});
+export const server = app.start(port);

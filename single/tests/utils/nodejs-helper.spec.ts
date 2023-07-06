@@ -39,3 +39,4 @@ describe('NodeJsHelper', () => {
     });
   });
 });
+// TODO add tests for server? also add testhelper?

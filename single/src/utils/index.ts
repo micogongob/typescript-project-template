@@ -1,5 +1,3 @@
-import * as AppDetailsHelper from './app-details-helper';
-import * as errorHandler from './error-handler';
-import * as nodeJsHelper from './nodejs-helper';
-
-export { AppDetailsHelper, errorHandler, nodeJsHelper };
+export * from './app-details-helper';
+export * from './error-handler';
+export * from './nodejs-helper';

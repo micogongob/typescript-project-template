@@ -1,6 +1,6 @@
 import express from 'express';
 import logger from 'morgan';
-import { errorHandler, AppDetailsHelper } from './utils';
+import { ErrorHandler, AppDetailsHelper } from './utils';
 
 export const app = express();
 
@@ -31,7 +31,7 @@ app.get('/health', (req: any, res: any, next: any) => {
   }
 });
 
-app.use(errorHandler.logError);
-app.use(errorHandler.asApiError);
+app.use(ErrorHandler.logError);
+app.use(ErrorHandler.asApiError);
 
 console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);

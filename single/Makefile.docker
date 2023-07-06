@@ -1,6 +1,7 @@
 APP_NAME = typescript-project-template
 APP_PORT = 9090
 APP_VERSION ?= 1.0.0-dev
+# TODO make app name and version dynamic using jq
 
 RUN_NPM = npm
 

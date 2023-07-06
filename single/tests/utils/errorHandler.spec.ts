@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { errorHandler } from '../../src/utils';
+import { ErrorHandler } from '../../src/utils';
 
-describe('error handler', () => {
-  describe('extractMessageFromErr', () => {
+describe('ErrorHandler', () => {
+  context('extractMessageFromErr', () => {
     it('should return from string', () => {
       // when
-      const errMsg = errorHandler.parseExceptionMessage('something went wrong');
+      const errMsg = ErrorHandler.parseExceptionMessage('something went wrong');
 
       // then
       expect(errMsg).to.be.eq('something went wrong');
@@ -13,7 +13,7 @@ describe('error handler', () => {
 
     it('should return from string', () => {
       // when
-      const errMsg = errorHandler.parseExceptionMessage(new Error('I am the senate!'));
+      const errMsg = ErrorHandler.parseExceptionMessage(new Error('I am the senate!'));
 
       // then
       expect(errMsg).to.be.contain('I am the senate!');
@@ -21,7 +21,7 @@ describe('error handler', () => {
 
     it('should return default', () => {
       // when
-      const errMsg = errorHandler.parseExceptionMessage({ foo: 'bar' });
+      const errMsg = ErrorHandler.parseExceptionMessage({ foo: 'bar' });
 
       // then
       expect(errMsg).to.be.contain('Unparseable exception message');

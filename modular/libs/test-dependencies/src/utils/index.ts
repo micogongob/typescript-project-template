@@ -1,3 +1,1 @@
-import * as testHelper from './test-helper';
-
-export { testHelper };
+export * from './test-helper';

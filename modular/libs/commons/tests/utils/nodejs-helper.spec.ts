@@ -7,13 +7,13 @@ const { expect } = chai;
 import path from 'path';
 import { promises as fsPromises } from 'fs';
 
-import { nodeJsHelper } from '../../src/utils';
+import { NodeJsHelper } from '../../src/utils';
 
 describe('nodeJsHelper', () => {
   context('resolvePath', () => {
     it('should be equal to path.resolve()', () => {
       expect(
-        nodeJsHelper.resolvePath(__dirname, '../../src')
+        NodeJsHelper.resolvePath(__dirname, '../../src')
       ).to.eq(
         path.resolve(__dirname, '../../src')
       );
@@ -23,7 +23,7 @@ describe('nodeJsHelper', () => {
   context('fileBasename', () => {
     it('should be equal to path.basename()', () => {
       expect(
-        nodeJsHelper.fileBasename(path.resolve(__dirname, '../../src/index.ts'))
+        NodeJsHelper.fileBasename(path.resolve(__dirname, '../../src/index.ts'))
       ).to.eq(
         path.basename(path.resolve(__dirname, '../../src/index.ts'))
       );
@@ -32,7 +32,7 @@ describe('nodeJsHelper', () => {
 
   context('findDirectoryContents', async () => {
     it('should be equal to fs.promises.readdir()', async () => {
-      const actual: string[] = await nodeJsHelper.findDirectoryContents(__dirname);
+      const actual: string[] = await NodeJsHelper.findDirectoryContents(__dirname);
       const expected: string[] = await fsPromises.readdir(__dirname);
 
       expect(actual).to.eql(expected);

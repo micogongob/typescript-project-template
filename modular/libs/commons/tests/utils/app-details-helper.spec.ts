@@ -1,16 +1,15 @@
 import { expect } from 'chai';
-import { AppDetails } from '../../src/models';
 import { AppDetailsHelper } from '../../src/utils';
 
-describe('app details helper', () => {
-  describe('getDetails', () => {
+describe('AppDetailsHelper', () => {
+  context('getDetails', () => {
     it('should return unknown as default', () => {
       // when
-      const details: AppDetails = AppDetailsHelper.getDetails();
+      const details = AppDetailsHelper.getDetails();
 
       // then
-      expect(details.name).to.be.eq('UNKNOWN_APP_NAME');
-      expect(details.version).to.be.eq('UNKNOWN_APP_VERSION');
+      expect(details).to.haveOwnProperty('name', 'UNKNOWN_APP_NAME');
+      expect(details).to.haveOwnProperty('version', 'UNKNOWN_APP_VERSION');
     });
   });
 });

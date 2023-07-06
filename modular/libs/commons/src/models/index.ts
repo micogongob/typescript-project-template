@@ -1,3 +1,1 @@
-import AppDetails from './app-details';
-
-export { AppDetails };
+export * from './app-details';

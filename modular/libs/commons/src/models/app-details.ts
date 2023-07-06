@@ -1,4 +1,4 @@
-export default interface AppDetails {
+export type AppDetails = {
   name: string;
   version: string;
-}
+};

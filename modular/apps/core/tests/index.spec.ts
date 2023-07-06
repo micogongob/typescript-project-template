@@ -7,7 +7,7 @@ chai.use(sinonChai);
 
 const { expect } = chai;
 
-import { testHelper } from '@local/test-dependencies';
+import { TestHelper } from '@local/test-dependencies';
 
 describe('Server', () => {
   let listenStub: sinon.SinonStub;
@@ -22,7 +22,7 @@ describe('Server', () => {
 
   });
 
-  const createProxy = testHelper.createProxyFunc([__dirname, '../src/index'], () => {
+  const createProxy = TestHelper.createProxyFunc([__dirname, '../src/index'], () => {
     return {
       './app': {
         app: {

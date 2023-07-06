@@ -1,6 +1,6 @@
 {
     "name": "@local/config-eslint",
-    "version": "0.0.0",
+    "version": "1.0.0-dev",
     "dependencies": {
         "@local/config-prettier": "workspace:^",
         "@typescript-eslint/eslint-plugin": "^5.52.0",

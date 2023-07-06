@@ -18,6 +18,6 @@ fmt:
 .env:
 	yarn .env
 
-run:
-	yarn run-app
+core:
+	cd apps/core && npm start
 .PHONY: run

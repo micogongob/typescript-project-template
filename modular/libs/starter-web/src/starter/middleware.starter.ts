@@ -1,8 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 
-const CONTENT_TYPE = 'content-type';
-const APPLICATION_JSON = 'application/json';
+import { HttpBasedException } from '../errors';
 
 export interface MiddlewareStarter {
   configure(app: express.Application): void;
@@ -26,13 +25,9 @@ export class RequestBodyProcessingMiddlewareStarter implements MiddlewareStarter
 export class DefaultRouteNotFoundMiddlewareStarter implements MiddlewareStarter {
   configure(app: express.Application): void {
     app.use((req: express.Request, res: express.Response): express.Response => {
-      res.header(CONTENT_TYPE, APPLICATION_JSON);
-      return res.status(404).json({
-        error: {
-          status: '404 Not Found',
-          message: `Path: ${req.path} is not found`
-        }
-      });
+     throw HttpBasedException.notFoundWithMessage(
+      `Path: ${req.path} is not found.`
+     );
     });
   }
 }

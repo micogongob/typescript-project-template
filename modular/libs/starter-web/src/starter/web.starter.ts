@@ -4,6 +4,7 @@ import debug from 'debug';
 
 import * as middlewares from './middleware.starter';
 import * as routes from './route.starter';
+import * as errorHandlers  from './error-handler.starter';
 
 const log = debug('app:server');
 
@@ -22,6 +23,10 @@ export class WebApplicationStarter {
     const router = express.Router();
     route.defineRoutes(router);
     this.app.use(path, router);
+  }
+
+  addErrorHandler(errorHandler: errorHandlers.ErrorHandlerStarter): void {
+    this.app.use(errorHandler.handleError);
   }
 
   start(port: string | number): Server {
@@ -49,6 +54,11 @@ export class WebApplicationStarterBuilder {
     return this;
   }
 
+  addErrorHandler(handler: errorHandlers.ErrorHandlerStarter): WebApplicationStarterBuilder {
+    this.application.addErrorHandler(handler);
+    return this;
+  }
+
   build(): WebApplicationStarter {
     return this.application;
   }
@@ -71,6 +81,9 @@ export class WebApplicationStarterBuilder {
     }
 
     builder.addMiddleware(new middlewares.DefaultRouteNotFoundMiddlewareStarter());
+
+    builder.addErrorHandler(new errorHandlers.DefaultConsoleLoggingErrorHandlerStarter());
+    builder.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler());
 
     return builder;
   }

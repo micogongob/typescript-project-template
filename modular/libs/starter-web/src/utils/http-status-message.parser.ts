@@ -3,7 +3,7 @@ export class HttpStatusMessageMapper {
 
   static {
     this.HTTP_STATUS_TO_STRING_MAP.set(200, '200 OK');
-    this.HTTP_STATUS_TO_STRING_MAP.set(200, '201 Created');
+    this.HTTP_STATUS_TO_STRING_MAP.set(201, '201 Created');
     this.HTTP_STATUS_TO_STRING_MAP.set(400, '400 Bad Request');
     this.HTTP_STATUS_TO_STRING_MAP.set(401, '401 Unauthorized');
     this.HTTP_STATUS_TO_STRING_MAP.set(403, '403 Forbidden');

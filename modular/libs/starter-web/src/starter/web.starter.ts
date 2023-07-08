@@ -59,6 +59,11 @@ export class WebApplicationStarterBuilder {
     return this;
   }
 
+  addErrorCodeHandler(mappings: errorHandlers.ErrorCodeMappings = {}): WebApplicationStarterBuilder {
+    this.application.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler(mappings));
+    return this;
+  }
+
   build(): WebApplicationStarter {
     return this.application;
   }
@@ -83,7 +88,6 @@ export class WebApplicationStarterBuilder {
     builder.addMiddleware(new middlewares.DefaultRouteNotFoundMiddlewareStarter());
 
     builder.addErrorHandler(new errorHandlers.DefaultConsoleLoggingErrorHandlerStarter());
-    builder.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler());
 
     return builder;
   }

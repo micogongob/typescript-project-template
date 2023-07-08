@@ -1,23 +1,12 @@
 import { AppDetailsHelper } from '@local/common-dependencies';
-import express from 'express';
 import { ErrorHandler } from '@local/common-dependencies';
 import {
   WebApplicationStarter,
-  WebApplicationStarterBuilder,
-  HttpTrafficLoggingMiddlewareStarter,
-  RequestBodyProcessingMiddlewareStarter,
-  SimpleHealthCheckMiddlewareStarter,
-  DefaultRouteNotFoundMiddlewareStarter
+  WebApplicationStarterBuilder
 } from '@local/starter-web';
 
 export const app: WebApplicationStarter = WebApplicationStarterBuilder
-  .newBuilder(express())
-  .addMiddlewares(
-    new HttpTrafficLoggingMiddlewareStarter(),
-    new RequestBodyProcessingMiddlewareStarter(),
-    new SimpleHealthCheckMiddlewareStarter(),
-    new DefaultRouteNotFoundMiddlewareStarter()
-  )
+  .defaultExpress()
   .build();
 
 // TODO support error handler in starter

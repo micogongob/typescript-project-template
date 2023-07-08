@@ -2,12 +2,7 @@ import express, { Application } from 'express';
 import { Server } from 'http';
 import debug from 'debug';
 
-import {
-  MiddlewareStarter,
-  HttpTrafficLoggingMiddlewareStarter,
-  RequestBodyProcessingMiddlewareStarter,
-  SimpleHealthCheckMiddlewareStarter
-} from './middleware.starter';
+import * as middlewares from './middleware.starter';
 
 const log = debug('app:server');
 
@@ -18,8 +13,8 @@ export class WebApplicationStarter {
     this.app = app;
   }
 
-  addMiddleware(middleware: MiddlewareStarter): void {
-    middleware.configure(this.app);
+  addMiddleware(middelware: middlewares.MiddlewareStarter): void {
+    middelware.configure(this.app);
   }
 
   start(port: string | number): Server {
@@ -37,10 +32,8 @@ export class WebApplicationStarterBuilder {
     this.application = application;
   }
 
-  addMiddlewares(...middlewares: MiddlewareStarter[]): WebApplicationStarterBuilder {
-    for (const m of middlewares) {
-      this.application.addMiddleware(m);
-    }
+  addMiddleware(middleware: middlewares.MiddlewareStarter): WebApplicationStarterBuilder {
+    this.application.addMiddleware(middleware);
     return this;
   }
 
@@ -52,14 +45,13 @@ export class WebApplicationStarterBuilder {
     const builder = new WebApplicationStarterBuilder(new WebApplicationStarter(app));
     return builder;
   }
-}
 
-// export const webApp: WebApplicationStarter = WebApplicationStarterBuilder
-//   .newBuilder(express())
-//   .addMiddlewares(
-//     new HttpTrafficLoggingMiddlewareStarter(),
-//     new RequestBodyProcessingMiddlewareStarter(),
-//     new SimpleHealthCheckMiddlewareStarter()
-//   )
-//   .build();
+  static defaultExpress(): WebApplicationStarterBuilder {
+    return this.newBuilder(express())
+      .addMiddleware(new middlewares.HttpTrafficLoggingMiddlewareStarter())
+      .addMiddleware(new middlewares.RequestBodyProcessingMiddlewareStarter())
+      .addMiddleware(new middlewares.SimpleHealthCheckMiddlewareStarter())
+      .addMiddleware(new middlewares.DefaultRouteNotFoundMiddlewareStarter())
+  }
+}
 

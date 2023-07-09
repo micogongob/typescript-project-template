@@ -19,7 +19,7 @@
         "fmt": "eslint src --ext .ts --fix"
     },
     "dependencies": {
-        "@local/common-dependencies": "workspace:^",
+        "@local/starter-core": "workspace:^",
         "express": "^4.18.2"
     },
     "devDependencies": {

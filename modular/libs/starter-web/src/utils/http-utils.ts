@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { ErrorCodedException } from '@local/common-dependencies';
+import { ErrorCodedException } from '@local/starter-core';
 import * as errors from '../errors';
 import * as types from '../types';
 import * as utils from '../utils';

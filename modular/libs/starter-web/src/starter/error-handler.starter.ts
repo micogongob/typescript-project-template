@@ -1,5 +1,5 @@
 import express from 'express';
-import { ErrorParser } from '@local/common-dependencies';
+import { ErrorParser } from '@local/starter-core';
 import debug from 'debug';
 
 import * as types from '../types';

@@ -10,6 +10,7 @@ import * as errorHandlers  from './error-handler.starter';
 const log = debug('app:server');
 
 export class WebApplicationStarter {
+
   constructor(
     private app: express.Application
   ) {
@@ -30,7 +31,6 @@ export class WebApplicationStarter {
     this.app.use(errorHandler.buildErrorHandler());
   }
 
-  // TODO support for async config initialization?
   start(port: string | number): Server {
     return this.app.listen(port, () => {
       log(`Server listening at port: ${port}`);
@@ -76,15 +76,17 @@ export class WebApplicationStarterBuilder {
   }
 
   static defaultExpress(
-    ...routeConfigs: types.RouteConfig[]
+    routeConfig: routes.RouteConfigStarter | null = null
   ): WebApplicationStarterBuilder {
     const builder = this.newBuilder(express())
       .addMiddleware(new middlewares.HttpTrafficLoggingMiddlewareStarter())
       .addMiddleware(new middlewares.RequestBodyProcessingMiddlewareStarter())
       .addRoute('/health', new routes.SimpleHealthCheckRouteStarter());
 
-    for (const config of routeConfigs) {
-      builder.addRoute(config.path, config.route);
+    if (routeConfig !== null) {
+      for (const config of routeConfig.pathConfigs()) {
+        builder.addRoute(config.path, config.route);
+      }
     }
 
     builder.addMiddleware(new middlewares.DefaultRouteNotFoundMiddlewareStarter());

@@ -1,9 +1,9 @@
 import express from 'express';
 import { RouteStarter } from './starter';
 
-export type RouteConfig = {
+export type RoutePathConfig = {
+  route: RouteStarter;
   path: string;
-  route: RouteStarter
 }
 
 export type BaseHttpResponse = {

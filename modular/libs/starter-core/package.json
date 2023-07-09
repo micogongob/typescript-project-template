@@ -1,5 +1,5 @@
 {
-    "name": "@local/common-dependencies",
+    "name": "@local/starter-core",
     "version": "1.0.0-dev",
     "private": true,
     "main": "src/index.ts",

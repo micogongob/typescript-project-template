@@ -1,9 +1,15 @@
 import express from 'express';
 
+import { ConfigStarter } from '@local/starter-core';
+import { RoutePathConfig } from '../types';
 import * as utils from '../utils';
 
 export interface RouteStarter {
   defineRoutes(router: express.Router): void;
+}
+
+export interface RouteConfigStarter extends ConfigStarter {
+  pathConfigs(): RoutePathConfig[];
 }
 
 export class SimpleHealthCheckRouteStarter implements RouteStarter {

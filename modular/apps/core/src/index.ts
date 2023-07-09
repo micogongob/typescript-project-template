@@ -1,7 +1,8 @@
-import debug from 'debug';
-import { app } from './app';
+import { Server } from 'http';
 
-const log = debug('app');
+import { run } from './app';
+
 const port = process.env.PORT || 3000;
 
-export const server = app.start(port);
+export const server: Promise<Server>
+  = run().then((app) => app.start(port));

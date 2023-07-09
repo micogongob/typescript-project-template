@@ -1,16 +1,18 @@
-import { AppDetailsHelper } from '@local/common-dependencies';
-import { ErrorHandler } from '@local/common-dependencies';
-import {
-  WebApplicationStarter,
-  WebApplicationStarterBuilder
-} from '@local/starter-web';
+import { AppDetailsHelper } from '@local/starter-core';
+import { ApplicationConfigStarterBuilder } from '@local/starter-core';
+import { WebApplicationStarter, WebApplicationStarterBuilder } from '@local/starter-web';
+// import * as configs from './config';
 
-export const app: WebApplicationStarter = WebApplicationStarterBuilder
-  .defaultExpress()
-  .build();
+export async function run(): Promise<WebApplicationStarter> {
+  console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);
 
-// TODO support error handler in starter
-//app.use(ErrorHandler.logError);
-//app.use(ErrorHandler.asApiError);
+  await ApplicationConfigStarterBuilder.create()
+    //.addConfig(configs.serviceConfig)
+    //.addConfig(configs.routeConfig)
+    .build().initialize();
 
-console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);
+  return WebApplicationStarterBuilder
+    .defaultExpress() //.defaultExpress(configs.routeConfig)
+    //.addRestApiErrorHandler(configs.errorCodeMappingConfig)
+    .build();
+};

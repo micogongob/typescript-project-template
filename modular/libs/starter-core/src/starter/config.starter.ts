@@ -43,3 +43,12 @@ export class ApplicationConfigStarterBuilder {
     return builder;
   }
 }
+
+export class ConfigFieldGetter {
+  static getRequiredField<T>(field: T | undefined, fieldName = 'ConfigField'): T {
+    if (field === undefined) {
+      throw new Error(`${fieldName} cannot be null`);
+    }
+    return field;
+  }
+}

@@ -16,3 +16,4 @@ export async function run(): Promise<WebApplicationStarter> {
     //.addRestApiErrorHandler(configs.errorCodeMappingConfig)
     .build();
 };
+// TODO add request validation?

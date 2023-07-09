@@ -5,6 +5,7 @@ export class ErrorCodedException extends Error {
     public cause: any | null
   ) {
     super(message);
+    this.name = 'ErrorCodedException';
     this.code = code;
     this.message = message;
     this.cause = cause;

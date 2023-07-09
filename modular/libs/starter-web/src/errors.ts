@@ -4,6 +4,7 @@ export class HttpBasedException extends Error {
     public message: string
   ) {
     super(message);
+    this.name = 'HttpBasedException';
     this.status = status;
     this.message = message;
   }

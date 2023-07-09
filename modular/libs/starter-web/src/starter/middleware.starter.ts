@@ -25,9 +25,7 @@ export class RequestBodyProcessingMiddlewareStarter implements MiddlewareStarter
 export class DefaultRouteNotFoundMiddlewareStarter implements MiddlewareStarter {
   configure(app: express.Application): void {
     app.use((req: express.Request, res: express.Response): express.Response => {
-     throw HttpBasedException.notFoundWithMessage(
-      `Path: ${req.path} is not found.`
-     );
+      throw HttpBasedException.notFound(`Path: ${req.path} is not found.`);
     });
   }
 }

@@ -2,6 +2,7 @@ import express from 'express';
 import { Server } from 'http';
 import debug from 'debug';
 
+import * as types from '../types';
 import * as middlewares from './middleware.starter';
 import * as routes from './route.starter';
 import * as errorHandlers  from './error-handler.starter';
@@ -59,8 +60,8 @@ export class WebApplicationStarterBuilder {
     return this;
   }
 
-  addErrorCodeHandler(mappings: errorHandlers.ErrorCodeMappings = {}): WebApplicationStarterBuilder {
-    this.application.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler(mappings));
+  addRestApiErrorHandler(): WebApplicationStarterBuilder {
+    this.application.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler());
     return this;
   }
 

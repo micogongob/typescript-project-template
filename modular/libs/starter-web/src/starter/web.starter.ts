@@ -30,6 +30,7 @@ export class WebApplicationStarter {
     this.app.use(errorHandler.buildErrorHandler());
   }
 
+  // TODO support for async config initialization?
   start(port: string | number): Server {
     return this.app.listen(port, () => {
       log(`Server listening at port: ${port}`);

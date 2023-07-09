@@ -27,7 +27,7 @@ export class WebApplicationStarter {
   }
 
   addErrorHandler(errorHandler: errorHandlers.ErrorHandlerStarter): void {
-    this.app.use(errorHandler.handleError);
+    this.app.use(errorHandler.buildErrorHandler());
   }
 
   start(port: string | number): Server {
@@ -60,8 +60,8 @@ export class WebApplicationStarterBuilder {
     return this;
   }
 
-  addRestApiErrorHandler(): WebApplicationStarterBuilder {
-    this.application.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler());
+  addRestApiErrorHandler(mappingConfig: types.ErrorCodeMappingConfig = {}): WebApplicationStarterBuilder {
+    this.application.addErrorHandler(new errorHandlers.DefaultErrorToRestResponseErrorHandler(mappingConfig));
     return this;
   }
 
@@ -75,7 +75,7 @@ export class WebApplicationStarterBuilder {
   }
 
   static defaultExpress(
-    ...routeConfigs: { path: string, routeStarter: routes.RouteStarter }[]
+    ...routeConfigs: types.RouteConfig[]
   ): WebApplicationStarterBuilder {
     const builder = this.newBuilder(express())
       .addMiddleware(new middlewares.HttpTrafficLoggingMiddlewareStarter())
@@ -83,7 +83,7 @@ export class WebApplicationStarterBuilder {
       .addRoute('/health', new routes.SimpleHealthCheckRouteStarter());
 
     for (const config of routeConfigs) {
-      builder.addRoute(config.path, config.routeStarter);
+      builder.addRoute(config.path, config.route);
     }
 
     builder.addMiddleware(new middlewares.DefaultRouteNotFoundMiddlewareStarter());

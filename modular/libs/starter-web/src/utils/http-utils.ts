@@ -1,5 +1,9 @@
+import { Response } from 'express';
+
+import { ErrorCodedException } from '@local/common-dependencies';
 import * as errors from '../errors';
 import * as types from '../types';
+import * as utils from '../utils';
 
 import debug from 'debug';
 
@@ -54,29 +58,70 @@ export class HttpUtils {
     };
   }
 
-  static parseServerError(err: any): types.HttpErrorResult {
+  static is2xxStatus(status: number): boolean {
+    return status >= 200 && status <= 299;
+  }
+
+  static parseServerException(err: any, res: Response, errCodeMapping: Map<string, types.ErrorCodeInfo>): types.HttpErrorResult {
     if (err instanceof errors.HttpBasedException) {
-      return this.parseHttpBasedError(err);
+      return this.parseHttpBasedException(err);
+    }
+    if (err instanceof ErrorCodedException) {
+      return this.parseErrorCodedException(err, res, errCodeMapping);
     }
 
     return {
       status: 500,
-      errors: [{
-        message: 'Internal server error encountered'
-      }]
+      errors: [
+        {
+          message: 'Internal server error encountered'
+        }
+      ]
     };
   }
 
-  static parseHttpBasedError(err: errors.HttpBasedException): types.HttpErrorResult {
+  private static parseHttpBasedException(err: errors.HttpBasedException): types.HttpErrorResult {
     return {
       status: err.status,
-      errors: [{
-        message: err.message
-      }]
+      errors: [
+        {
+          message: err.message
+        }
+      ]
     };
   }
 
-  static is2xxStatus(status: number): boolean {
-    return status >= 200 && status <= 299;
+  private static parseErrorCodedException(err: ErrorCodedException, res: Response, errCodeMapping: Map<string, types.ErrorCodeInfo>): types.HttpErrorResult {
+    const mapping: types.ErrorCodeInfo | undefined = errCodeMapping.get(err.code);
+
+    if (mapping === undefined) {
+      res.set(utils.ERROR_CODE_HEADER, err.code);
+      return {
+        status: 500,
+        errors: [
+          {
+            message: err.message
+          },
+          {
+            message: 'Unmapped error code encountered'
+          }
+        ]
+      };
+    }
+
+    const errorMsgs: any[] = [
+      {
+        message: err.message
+      }
+    ];
+
+    if (mapping.message !== undefined) {
+      errorMsgs.push({ message: mapping.message });
+    }
+
+    return {
+      status: mapping.status,
+      errors: errorMsgs
+    };
   }
 }

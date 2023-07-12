@@ -11,7 +11,6 @@ export class HeaderValidationStarter {
       if (!zParse.success) {
         console.error(JSON.stringify(zParse.error.errors));
         // TODO pass to exception e.g for string
-        // TODO setup .refine or superRefine for black list validation
         // [{"code":"invalid_type","expected":"string","received":"undefined","path":["rrn"],"message":"Required"}]
         throw HttpBasedException.badRequest();
       }

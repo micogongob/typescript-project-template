@@ -24,6 +24,12 @@ export type HttpErrorResult = {
   errors: any[];
 }
 
+export type ValidatorFunction = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => express.Response | void;
+
 export type ErrorHandlerFunction = (
   err: any,
   req: express.Request,

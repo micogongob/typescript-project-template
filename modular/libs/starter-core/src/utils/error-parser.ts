@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export class ErrorParser {
   private static DEFAULT_ERR_MSG = 'Unparseable exception message';
 
@@ -40,6 +42,14 @@ export class ErrorParser {
       }
     }
     return this.DEFAULT_ERR_MSG;
+  }
+
+  static zodErrorToStrings(err: z.ZodError): string[] {
+    console.error(JSON.stringify(err.errors));
+    return err.errors.map((zErr) => {
+      const { message, path } = zErr;
+      return `${message} Path: ${path.join(',')}`;
+    });
   }
 }
 // TODO unit tests

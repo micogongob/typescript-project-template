@@ -1,5 +1,6 @@
 import { ValidatorFunction } from '../types';
 import { HttpBasedException } from '../errors';
+import { ErrorParser } from '@local/starter-core';
 
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
@@ -9,10 +10,7 @@ export class HeaderValidationStarter {
     return (req: Request, res: Response, next: NextFunction): Response | void => {
       const zParse = validator.safeParse(req.headers);
       if (!zParse.success) {
-        console.error(JSON.stringify(zParse.error.errors));
-        // TODO pass to exception e.g for string
-        // [{"code":"invalid_type","expected":"string","received":"undefined","path":["rrn"],"message":"Required"}]
-        throw HttpBasedException.badRequest();
+        throw HttpBasedException.badRequest(...ErrorParser.zodErrorToStrings(zParse.error));
       }
       return next();
     };

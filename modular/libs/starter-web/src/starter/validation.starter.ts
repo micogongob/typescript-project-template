@@ -15,6 +15,7 @@ export class HeaderValidationStarter {
           ...ErrorParser.zodErrorToStrings(zParse.error)
         );
       }
+      req['requestHeaders'] = zParse.data;
       return next();
     };
   }
@@ -30,6 +31,7 @@ export class BodyValidationStarter {
           ...ErrorParser.zodErrorToStrings(zParse.error)
         );
       }
+      req['requestBody'] = zParse.data;
       return next();
     };
   }

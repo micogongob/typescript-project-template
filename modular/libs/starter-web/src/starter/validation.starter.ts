@@ -10,7 +10,25 @@ export class HeaderValidationStarter {
     return (req: Request, res: Response, next: NextFunction): Response | void => {
       const zParse = validator.safeParse(req.headers);
       if (!zParse.success) {
-        throw HttpBasedException.badRequest(...ErrorParser.zodErrorToStrings(zParse.error));
+        throw HttpBasedException.badRequest(
+          'Request header validation failed',
+          ...ErrorParser.zodErrorToStrings(zParse.error)
+        );
+      }
+      return next();
+    };
+  }
+}
+
+export class BodyValidationStarter {
+  static build(validator: z.ZodTypeAny): ValidatorFunction {
+    return (req: Request, res: Response, next: NextFunction): Response | void => {
+      const zParse = validator.safeParse(req.body);
+      if (!zParse.success) {
+        throw HttpBasedException.badRequest(
+          'Request body validation failed',
+          ...ErrorParser.zodErrorToStrings(zParse.error)
+        );
       }
       return next();
     };

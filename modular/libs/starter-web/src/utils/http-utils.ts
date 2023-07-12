@@ -83,11 +83,11 @@ export class HttpUtils {
   private static parseHttpBasedException(err: errors.HttpBasedException): types.HttpErrorResult {
     return {
       status: err.status,
-      errors: [
-        {
-          message: err.message
-        }
-      ]
+      errors: err.messages.map((e) => {
+        return {
+          message: e
+        };
+      })
     };
   }
 

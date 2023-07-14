@@ -34,7 +34,6 @@ export class HttpRequestValidationStarter {
       if (errors.length > 0) {
         throw HttpBasedException.badRequest(...errors);
       } else {
-        // TODO add wrapper function for router middelware by default has try catch block
         return next();
       }
     };

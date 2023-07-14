@@ -1,7 +1,9 @@
 import express from 'express';
 
 import { ConfigStarter } from '@local/starter-core';
-import { RoutePathConfig } from '../types';
+import {
+  RoutePathConfig
+} from '../types';
 import * as utils from '../utils';
 
 export interface RouteStarter {
@@ -21,4 +23,28 @@ export class SimpleHealthCheckRouteStarter implements RouteStarter {
       ));
     });
   }
+}
+
+export function asyncHandler(
+  action: (arg0: express.Request, arg1: express.Response) => Promise<express.Response>
+): (arg0: express.Request, arg1: express.Response, arg2: express.NextFunction) => Promise<express.Response | void> {
+  return async (req, res, next) => {
+    try {
+      return await action(req, res);
+    } catch (err) {
+      return next(err);
+    }
+  };
+}
+
+export function syncHandler(
+  action: (arg0: express.Request, arg1: express.Response) => express.Response
+): (arg0: express.Request, arg1: express.Response, arg2: express.NextFunction) => express.Response | void {
+  return (req, res, next) => {
+    try {
+      return action(req, res);
+    } catch (err) {
+      return next(err);
+    }
+  };
 }

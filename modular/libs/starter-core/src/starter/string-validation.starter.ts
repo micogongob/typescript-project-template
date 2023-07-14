@@ -7,11 +7,14 @@ type BaseRawParams = {
   maxSize?: number;
 };
 
-type NonBlankStringRawParams = BaseRawParams;
-type BlackListStringRawParams = {
+type NonBlankStringRawParams = {
+  regex?: RegExp;
+}
+& BaseRawParams;
+type AntiRegexStringRawParams = {
   allowBlank?: boolean;
 } & BaseRawParams;
-type BaseRawParamsSubTypes = 'NonBlankStringRawParams' | 'BlackListStringRawParams';
+type BaseRawParamsSubTypes = 'NonBlankStringRawParams' | 'AntiRegexStringRawParams';
 
 type BaseParsedParams = {
   name: string;
@@ -20,7 +23,7 @@ type BaseParsedParams = {
   maxSize: number;
 };
 
-type ParasedBlackListStringParams = {
+type ParasedAntiRegexStringParams = {
   allowBlank: boolean;
 } & BaseParsedParams;
 
@@ -28,30 +31,36 @@ export function nonBlankString(
   params: NonBlankStringRawParams = {}
 ): z.ZodEffects<z.ZodString, string, string> {
   const { minSize, maxSize, message } = getParamsOrDetault<BaseParsedParams>('NonBlankStringRawParams', params);
-  return z.string().min(minSize).max(maxSize)
-    .refine((data: string) => {
+
+  let baseSchema: z.ZodString = z.string().min(minSize).max(maxSize);
+
+  if (params.regex !== undefined) {
+    baseSchema = baseSchema.regex(params.regex);
+  }
+
+  return baseSchema.refine((data: string) => {
       return data.trim() !== ''
     }, {
       message
     });
 }
 
-export function blackListString(
+export function antiRegexString(
   pattern: RegExp,
-  params: BlackListStringRawParams = {}
+  params: AntiRegexStringRawParams = {}
 ): z.ZodEffects<z.ZodEffects<z.ZodString, string, string> | z.ZodString, string, string> {
-  const { minSize, maxSize, message, allowBlank } = getParamsOrDetault<ParasedBlackListStringParams>('BlackListStringRawParams', params);
+  const { minSize, maxSize, message, allowBlank } = getParamsOrDetault<ParasedAntiRegexStringParams>('AntiRegexStringRawParams', params);
 
   if (allowBlank) {
     return z.string().min(minSize).max(maxSize)
-      .refine((data) => validateBlackListPattern(data, pattern), { message });
+      .refine((data) => validateAntiPattern(data, pattern), { message });
   }
 
   return nonBlankString({ ...params, minSize, maxSize })
-    .refine((data) => validateBlackListPattern(data, pattern), { message });
+    .refine((data) => validateAntiPattern(data, pattern), { message });
 }
 
-function getParamsOrDetault<T>(type: BaseRawParamsSubTypes, params: NonBlankStringRawParams | BlackListStringRawParams): T {
+function getParamsOrDetault<T>(type: BaseRawParamsSubTypes, params: NonBlankStringRawParams | AntiRegexStringRawParams): T {
   const parseResult: Record<string, string | number | boolean> = {};
 
   parseResult.name = params.name !== undefined ? params.name : 'String';
@@ -60,9 +69,9 @@ function getParamsOrDetault<T>(type: BaseRawParamsSubTypes, params: NonBlankStri
 
   if (type === 'NonBlankStringRawParams') {
     parseResult.message = params.message ? params.message : `${parseResult.name} cannot be blank.`;
-  } else if (type === 'BlackListStringRawParams') {
+  } else if (type === 'AntiRegexStringRawParams') {
     parseResult.message = params.message ? params.message : `${parseResult.name} has invalid characters.`;
-    const asBlankStringParams: BlackListStringRawParams = (params as BlackListStringRawParams);
+    const asBlankStringParams: AntiRegexStringRawParams = (params as AntiRegexStringRawParams);
     parseResult.allowBlank = asBlankStringParams.allowBlank !== undefined ? asBlankStringParams.allowBlank : true;
   } else {
     throw new Error('Invalid type provided: ' + type);
@@ -71,6 +80,6 @@ function getParamsOrDetault<T>(type: BaseRawParamsSubTypes, params: NonBlankStri
   return parseResult as T;
 }
 
-function validateBlackListPattern(aString: string, pattern: RegExp): boolean {
+function validateAntiPattern(aString: string, pattern: RegExp): boolean {
   return !pattern.test(aString);
 }

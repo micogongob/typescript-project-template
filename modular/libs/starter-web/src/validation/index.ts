@@ -5,6 +5,10 @@ import { ErrorParser } from '@local/starter-core';
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 
+const REQUEST_PATH_PARAMETERS_NAME = 'requestPathParameters';
+const REQUEST_HEADERS_NAME = 'requestHeaders';
+const REQUEST_BODY_NAME = 'requestBody';
+
 type RequestPathParameters = 'PATH_PARAMETERS';
 type RequestHeaders = 'HEADERS';
 type RequestBody = 'BODY';
@@ -47,17 +51,17 @@ export class HttpRequestValidationStarter {
     switch (type) {
       case 'PATH_PARAMETERS':
         paramsToValidate = req.params;
-        requestField = 'requestPathParameters';
+        requestField = REQUEST_PATH_PARAMETERS_NAME;
         additionalErrorMessage = 'Path parameter validation failed.';
         break;
       case 'HEADERS':
         paramsToValidate = req.headers;
-        requestField = 'requestHeaders';
+        requestField =  REQUEST_HEADERS_NAME;
         additionalErrorMessage = 'Request headers validation failed.';
         break;
       case 'BODY':
         paramsToValidate = req.body;
-        requestField = 'requestBody';
+        requestField = REQUEST_BODY_NAME;
         additionalErrorMessage = 'Request body validation failed.';
         break;
       default:
@@ -72,5 +76,19 @@ export class HttpRequestValidationStarter {
       errors.push(additionalErrorMessage);
       errors.push(...ErrorParser.zodErrorToStrings(validated.error));
     }
+  }
+}
+
+export class ValidatedRequestParser {
+  private constructor() {}
+
+  static getPathParameters(req: Request): any {
+    return req[REQUEST_PATH_PARAMETERS_NAME];
+  }
+  static getHeaders(req: Request): any {
+    return req[REQUEST_HEADERS_NAME];
+  }
+  static getBody(req: Request): any {
+    return req[REQUEST_BODY_NAME];
   }
 }

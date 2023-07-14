@@ -45,7 +45,6 @@ export class ErrorParser {
   }
 
   static zodErrorToStrings(err: z.ZodError): string[] {
-    console.error(JSON.stringify(err.errors));
     return err.errors.map((zErr) => {
       const { message, path } = zErr;
       return `${message} - Field: ${path.join('.')}`;

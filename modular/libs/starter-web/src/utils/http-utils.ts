@@ -100,10 +100,10 @@ export class HttpUtils {
         status: 500,
         errors: [
           {
-            message: err.message
+            message: 'Unmapped error code encountered'
           },
           {
-            message: 'Unmapped error code encountered'
+            message: err.message
           }
         ]
       };

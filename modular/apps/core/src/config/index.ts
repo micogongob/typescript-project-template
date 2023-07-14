@@ -1,5 +1,6 @@
 // import { ConfigStarter, ConfigFieldGetter } from '@local/starter-core';
 // import { RouteConfigStarter, RoutePathConfig, ErrorCodeMappingConfig } from '@local/starter-web';
+// import { UserController } from '../controller';
 // import { UserRoute } from '../routes';
 // import { UserService } from '../service';
 
@@ -19,19 +20,50 @@
 // }
 
 
-// export class RouteConfig implements RouteConfigStarter {
-//   private userRoute: UserRoute | undefined;
+// export class ControllerConfig implements ConfigStarter {
+//   private userController: UserController | undefined;
 
 //   constructor(
 //     private serviceConfig: ServiceConfig
 //   ) {
-//     this.serviceConfig = serviceConfig
+//     this.serviceConfig = serviceConfig;
+//   }
+
+//   async initialize(): Promise<void> {
+//     this.userController = new UserController(
+//       this.serviceConfig.getUserService()
+//     )
+//   }
+
+//   getUserController(): UserController {
+//     return ConfigFieldGetter.getRequiredField<UserController>(
+//       this.userController,
+//       'UserController'
+//     );
+//   }
+// }
+
+
+// export class RouteConfig implements RouteConfigStarter {
+//   private userRoute: UserRoute | undefined;
+
+//   constructor(
+//     private controllerConfig: ControllerConfig
+//   ) {
+//     this.controllerConfig = controllerConfig
 //   }
 
 //   async initialize(): Promise<void> {
 //     this.userRoute = new UserRoute(
-//       this.serviceConfig.getUserService()
+//       this.controllerConfig.getUserController()
 //     )
+//   }
+
+//   getUserRoute(): UserRoute {
+//     return ConfigFieldGetter.getRequiredField<UserRoute>(
+//       this.userRoute,
+//       'UserRoute'
+//     );
 //   }
 
 //   pathConfigs(): RoutePathConfig[] {
@@ -42,13 +74,6 @@
 //       }
 //     ];
 //   }
-
-//   getUserRoute(): UserRoute {
-//     return ConfigFieldGetter.getRequiredField<UserRoute>(
-//       this.userRoute,
-//       'UserRoute'
-//     );
-//   }
 // }
 
 // export const errorCodeMappingConfig: ErrorCodeMappingConfig = {
@@ -57,4 +82,5 @@
 //   }
 // };
 // export const serviceConfig = new ServiceConfig();
-// export const routeConfig = new RouteConfig(serviceConfig);
+// export const controllerConfig = new ControllerConfig(serviceConfig);
+// export const routeConfig = new RouteConfig(controllerConfig);

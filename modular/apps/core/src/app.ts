@@ -7,13 +7,15 @@ export async function run(): Promise<WebApplicationStarter> {
   console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);
 
   await ApplicationConfigStarterBuilder.create()
-    //.addConfig(configs.serviceConfig)
-    //.addConfig(configs.routeConfig)
-    .build().initialize();
+    // .addConfig(configs.serviceConfig)
+    // .addConfig(configs.controllerConfig)
+    // .addConfig(configs.routeConfig)
+    .build()
+    .initialize();
 
   return WebApplicationStarterBuilder
-    .defaultExpress() //.defaultExpress(configs.routeConfig)
-    //.addRestApiErrorHandler(configs.errorCodeMappingConfig)
+    // .defaultExpress(configs.routeConfig)
+    .defaultExpress()
+    .addRestApiErrorHandler()
     .build();
 };
-// TODO add request validation?

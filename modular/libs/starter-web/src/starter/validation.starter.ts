@@ -36,4 +36,19 @@ export class BodyValidationStarter {
     };
   }
 }
-// TODO add request path validation
+
+export class PathValidationStarter {
+  static build(validator: z.ZodTypeAny): ValidatorFunction {
+    return (req: Request, res: Response, next: NextFunction): Response | void => {
+      const zParse = validator.safeParse(req.params);
+      if (!zParse.success) {
+        throw HttpBasedException.badRequest(
+          'Path validation failed',
+          ...ErrorParser.zodErrorToStrings(zParse.error)
+        );
+      }
+      req['requestPath'] = zParse.data;
+      return next();
+    };
+  }
+}

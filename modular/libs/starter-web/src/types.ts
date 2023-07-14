@@ -1,5 +1,5 @@
 import express from 'express';
-import { RouteStarter } from './starter';
+import { RouteStarter } from './web';
 
 export type RoutePathConfig = {
   route: RouteStarter;

@@ -1,11 +1,11 @@
 import { Knex } from 'knex';
 import { z } from 'zod';
 
-export type RepositoryQueryParams = {
+export type DatabaseTransactionParams = {
   transaction?: Knex.Transaction;
 };
 
-export type ExecuteQueryParams = RepositoryQueryParams & {
+export type ExecuteQueryParams = DatabaseTransactionParams & {
   mapper?: z.ZodTypeAny;
   allowNullish?: boolean;
 };

@@ -91,7 +91,7 @@ export class DatabaseClientStarter {
 
   private allowNullish(params?: types.ExecuteQueryParams): boolean {
     if (params === undefined || params.allowNullish === undefined) {
-      return false;
+      return true;
     }
     return params.allowNullish;
   }
@@ -104,4 +104,3 @@ export class DatabaseClientStarter {
     throw errors.DatabaseQueryResultMalformedException.withMessage(`Malformed database values: ${JSON.stringify(object)}`);
   }
 }
-

@@ -38,13 +38,14 @@ export class DatabaseClientStarter {
     return params.connectionPool;
   }
 
-  // TODO fix id by queries for single result
+  // TODO handle inserts, updates, delete
+  // TODO support transaction
   async execute<T>(
     operation: (queryClient: Knex) => Promise<any>,
     params?: types.ExecuteQueryParams
   ): Promise<T> {
     const queryResult: any = await operation(this.determineClient(params));
-    return this.mapQueryResult(queryResult, params);
+    return this.mapQueryResult<T>(queryResult, params);
   }
 
   private determineClient(params?: types.ExecuteQueryParams): Knex | Knex.Transaction {
@@ -58,8 +59,6 @@ export class DatabaseClientStarter {
   }
 
   private mapQueryResult<T>(queryResult: any, params?: types.ExecuteQueryParams): T {
-    console.log('Mapping ' + JSON.stringify(queryResult, null, 2));
-
     this.validateNullishDatabaseValue(queryResult, params);
 
     if (params === undefined || params.mapper === undefined) {
@@ -78,10 +77,14 @@ export class DatabaseClientStarter {
   }
 
   private validateNullishDatabaseValue(queryResult: any, params?: types.ExecuteQueryParams): void {
-    if (!Array.isArray(queryResult)) {
-      if (!this.allowNullish(params)) {
+    if (!this.allowNullish(params)) {
+      if (Array.isArray(queryResult)) {
+        if (queryResult === undefined || queryResult === null || queryResult.length <= 0) {
+          throw errors.DatabaseEmptyResultException.withMessage('Empty database result!');
+        }
+      } else {
         if (queryResult === undefined || queryResult === null) {
-          throw errors.DatabaseQueryResultMalformedException.withMessage('Null database result!');
+          throw errors.DatabaseEmptyResultException.withMessage('Null database result!');
         }
       }
     }

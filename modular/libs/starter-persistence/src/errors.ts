@@ -27,16 +27,16 @@ export class DatabaseQueryResultMalformedException extends Error {
 }
 
 
-export class DatabaseNullResultException extends Error {
+export class DatabaseEmptyResultException extends Error {
   private constructor(
     public message: string
   ) {
     super(message);
-    this.name = 'DatabaseNullResultException';
+    this.name = 'DatabaseEmptyResultException';
     this.message = message;
   }
 
-  static withMessage(msg: string): DatabaseNullResultException {
-    return new DatabaseNullResultException(msg);
+  static withMessage(msg: string): DatabaseEmptyResultException {
+    return new DatabaseEmptyResultException(msg);
   }
 }

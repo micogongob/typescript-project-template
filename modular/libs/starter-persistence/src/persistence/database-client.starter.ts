@@ -38,10 +38,10 @@ export class DatabaseClientStarter {
     return params.connectionPool;
   }
 
-  // TODO handle inserts, updates, delete
+  // TODO handle updates
   // TODO support transaction
   async execute<T>(
-    operation: (queryClient: Knex) => Promise<any>,
+    operation: (queryClient: Knex | Knex.Transaction) => Promise<any>,
     params?: types.ExecuteQueryParams
   ): Promise<T> {
     const queryResult: any = await operation(this.determineClient(params));

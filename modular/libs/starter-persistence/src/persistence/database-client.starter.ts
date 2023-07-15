@@ -38,7 +38,6 @@ export class DatabaseClientStarter {
     return params.connectionPool;
   }
 
-  // TODO handle updates
   // TODO support transaction
   async execute<T>(
     operation: (queryClient: Knex | Knex.Transaction) => Promise<any>,

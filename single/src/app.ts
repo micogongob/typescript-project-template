@@ -1,20 +1,14 @@
-import { AppDetailsHelper, ApplicationConfigStarterBuilder } from './starter/core';
-import { WebApplicationStarter, WebApplicationStarterBuilder } from './starter/web';
-// import * as configs from './config';
+import { AppDetailsHelper } from './utils';
+import debug from 'debug';
+import express from 'express';
+import logger from 'morgan';
 
-export async function run(): Promise<WebApplicationStarter> {
-  console.log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);
+const log = debug('app:server');
 
-  await ApplicationConfigStarterBuilder.create()
-    // .addConfig(configs.serviceConfig)
-    // .addConfig(configs.controllerConfig)
-    // .addConfig(configs.routeConfig)
-    .build()
-    .initialize();
+export const app = express();
 
-  return WebApplicationStarterBuilder
-    // .defaultExpress(configs.routeConfig)
-    .defaultExpress()
-    .addRestApiErrorHandler()
-    .build();
-};
+if (process.env.NODE_ENV !== 'production') {
+  app.use(logger('dev'));
+}
+
+log(`App details: ${JSON.stringify(AppDetailsHelper.getDetails())}`);

@@ -20,7 +20,8 @@ export class DatabaseClientStarter {
         user: DatabaseEnvHelper.getDatabaseUser(),
         password: DatabaseEnvHelper.getDatabasePassword()
       },
-      pool: this.getInitParamConnectionPool(params)
+      pool: this.getInitParamConnectionPool(params),
+      debug: this.getInitParamsDebug(params)
     });
   }
 
@@ -36,6 +37,14 @@ export class DatabaseClientStarter {
       return undefined;
     }
     return params.connectionPool;
+  }
+
+
+  private getInitParamsDebug(params?: types.DatabaseClientParams): boolean {
+    if (params === undefined || params.debug === undefined) {
+      return false;
+    }
+    return params.debug;
   }
 
   // TODO support transaction

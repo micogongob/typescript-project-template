@@ -19,4 +19,5 @@ export type DatabaseClientConnectionPool = {
 export type DatabaseClientParams = {
   engine?: DatabaseClientEngine;
   connectionPool?: DatabaseClientConnectionPool;
+  debug?: boolean;
 };

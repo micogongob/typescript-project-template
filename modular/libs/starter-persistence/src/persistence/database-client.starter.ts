@@ -47,13 +47,22 @@ export class DatabaseClientStarter {
     return params.debug;
   }
 
-  // TODO support transaction
   async execute<T>(
     operation: (queryClient: Knex | Knex.Transaction) => Promise<any>,
     params?: types.ExecuteQueryParams
   ): Promise<T> {
     const queryResult: any = await operation(this.determineClient(params));
     return this.mapQueryResult<T>(queryResult, params);
+  }
+
+  async executeInTransaction<T>(
+    operation: (queryClient: Knex.Transaction) => Promise<any>,
+    params?: types.ExecuteQueryParams
+  ): Promise<T> {
+    return await this.determineClient(params).transaction(async (trx) => {
+      const queryResult: any = await operation(trx);
+      return this.mapQueryResult<T>(queryResult, params);
+    });
   }
 
   private determineClient(params?: types.ExecuteQueryParams): Knex | Knex.Transaction {
@@ -65,7 +74,7 @@ export class DatabaseClientStarter {
     }
     throw errors.DatabaseGenericException.withMessage('Database client is not initialized!');
   }
-
+  // TODO map { isolationLevel: 'repeatable read' }
   private mapQueryResult<T>(queryResult: any, params?: types.ExecuteQueryParams): T {
     this.validateNullishDatabaseValue(queryResult, params);
 

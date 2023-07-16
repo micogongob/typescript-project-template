@@ -26,7 +26,6 @@ export class DatabaseQueryResultMalformedException extends Error {
   }
 }
 
-
 export class DatabaseEmptyResultException extends Error {
   private constructor(
     public message: string

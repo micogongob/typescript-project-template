@@ -1,6 +1,6 @@
 import { BaseEnvHelper, ConfigStarter, ConfigStarterUtils } from '@local/starter-core';
-import { DatabaseClientParams } from '../types';
-import { DatabaseClientStarter } from './database-client.starter';
+import { DatabaseClientOptions } from '../types';
+import { DatabaseClientStarter } from './client.starter';
 
 export class DatabaseEnvHelper {
   static getDatabaseHost(): string {
@@ -24,13 +24,13 @@ export class DatabaseConfigStarter implements ConfigStarter {
   private databaseClient?: DatabaseClientStarter;
 
   constructor(
-    private dbParams?: DatabaseClientParams
+    private options?: DatabaseClientOptions
   ) {
-    this.dbParams = dbParams;
+    this.options = options;
   }
 
   async initialize(): Promise<void> {
-    this.databaseClient = new DatabaseClientStarter(this.dbParams);
+    this.databaseClient = new DatabaseClientStarter(this.options);
   }
 
   getDatabaseClient(): DatabaseClientStarter {

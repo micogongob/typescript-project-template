@@ -1,2 +1,2 @@
-export * from './database-config.starter';
-export * from './database-client.starter';
+export * from './config.starter';
+export * from './client.starter';

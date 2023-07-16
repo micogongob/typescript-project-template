@@ -1,23 +1,29 @@
 import { Knex } from 'knex';
 import { z } from 'zod';
 
-export type DatabaseTransactionParams = {
+export type IsolationLevel = 'READ_UNCOMMITTED'
+  | 'READ_COMMITTED'
+  | 'REPEATABLE_READ'
+  | 'SERIALIZABLE';
+
+export type TransactionOptions = {
   transaction?: Knex.Transaction;
+  isolationLevel?: IsolationLevel
 };
 
-export type ExecuteQueryParams = DatabaseTransactionParams & {
+export type ExecuteQueryOptions = TransactionOptions & {
   mapper?: z.ZodTypeAny;
   allowNullish?: boolean;
 };
 
-export type DatabaseClientEngine = 'pg' | 'mysql';
-export type DatabaseClientConnectionPool = {
+export type DatabaseEngine = 'pg' | 'mysql';
+export type DatabaseConnectionPool = {
   min: number;
   max: number;
 };
 
-export type DatabaseClientParams = {
-  engine?: DatabaseClientEngine;
-  connectionPool?: DatabaseClientConnectionPool;
+export type DatabaseClientOptions = {
+  engine?: DatabaseEngine;
+  connectionPool?: DatabaseConnectionPool;
   debug?: boolean;
 };

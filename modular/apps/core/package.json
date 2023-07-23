@@ -10,7 +10,7 @@
         "js-mocha": "nyc --reporter=html mocha -r dotenv/config --exit 'tests/**/*.spec.js'",
         "ts-mocha": "nyc --reporter=html mocha -r ts-node/register -r dotenv/config --exit 'tests/**/*.spec.ts'",
         "start": "npm run ts-run",
-        "ts-run": "DEBUG=app,app:* nodemon -r dotenv/config ./src/index.ts",
+        "ts-run": "nodemon -r dotenv/config ./src/index.ts",
         "lint": "eslint src --ext .ts",
         "fmt": "eslint src --ext .ts --fix",
         ".env": "cp -f .env.example .env"

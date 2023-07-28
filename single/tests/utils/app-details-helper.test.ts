@@ -1,4 +1,3 @@
-// import { expect } from 'chai';
 import { AppDetailsHelper } from '../../src/utils';
 
 describe('App Details Helper', () => {

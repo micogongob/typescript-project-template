@@ -10,8 +10,10 @@
     "scripts": {
         "build": "npm run ts-build",
         "ts-build": "rm -rf dist && tsc",
-        "js-mocha": "nyc --reporter=html mocha -r dotenv/config --exit 'tests/**/*.spec.js'",
-        "ts-mocha": "nyc --reporter=html mocha -r ts-node/register -r dotenv/config --exit 'tests/**/*.spec.ts'",
+        "js-jest": "jest --setupFiles dotenv/config",
+        "ts-jest": "jest --setupFiles dotenv/config",
+        "js-mocha": "nyc --reporter=html mocha -r dotenv/config --exit 'tests/**/*.test.js'",
+        "ts-mocha": "nyc --reporter=html mocha -r ts-node/register -r dotenv/config --exit 'tests/**/*.test.ts'",
         "build-lib": "npm run build",
         "prestart": "npm run build",
         "lint": "eslint src --ext .ts",

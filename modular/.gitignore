@@ -14,7 +14,7 @@
 !**/.yarn/versions
 **/yarn-error.log*
 
-# nyc
+# test coverage
 **/coverage
 **/.nyc_output
 

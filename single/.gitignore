@@ -4,7 +4,7 @@
 # node
 **/node_modules/
 
-# nyc
+# test coverage
 **/coverage
 **/.nyc_output
 

@@ -1,0 +1,15 @@
+{
+  "automock": false,
+  "collectCoverage": true,
+  "collectCoverageFrom": ["src/**/*.{js,ts}"],
+  "coverageThreshold": {
+    "global": {
+      "statements": 30,
+      "branches": 30,
+      "functions": 30,
+      "lines": -5
+    }
+  },
+  "preset": "ts-jest",
+  "testEnvironment": "node"
+}

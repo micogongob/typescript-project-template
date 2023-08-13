@@ -11,8 +11,8 @@ COPY --from=builder /usr/bin/dumb-init /usr/bin/dumb-init
 ENV NODE_ENV production
 
 WORKDIR /app
-COPY --chown=node:node --from=builder /build/package.json /build/package.json /app
-COPY --chown=node:node --from=builder /build/dist /app/dist
+COPY --chown=node:node --from=builder /build/package.json /build/package.json /app/
+COPY --chown=node:node --from=builder /build/dist /app/dist/
 RUN npm install --omit=dev
 
 USER node
